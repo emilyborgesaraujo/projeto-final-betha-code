@@ -23,7 +23,7 @@ public class Curso extends AbstractEntity implements IPublicavel {
     private Categoria categoria;
     @ManyToOne
     @JoinColumn(name = "I_INSTRUTOR", referencedColumnName = "ID")
-    private Usuario instrutor;
+    private UsuarioEmpresa instrutor;
     @Transient
     private List<Aula> aulas;
 
@@ -56,7 +56,7 @@ public class Curso extends AbstractEntity implements IPublicavel {
     }
 
     @Override
-    public Usuario getUsuarioResponsavelPubli() {
+    public UsuarioEmpresa getUsuarioResponsavelPubli() {
         return instrutor;
     }
 
@@ -72,11 +72,11 @@ public class Curso extends AbstractEntity implements IPublicavel {
         this.categoria = categoria;
     }
 
-    public Usuario getInstrutor() {
+    public UsuarioEmpresa getInstrutor() {
         return instrutor;
     }
 
-    public void setInstrutor(Usuario instrutor) {
+    public void setInstrutor(UsuarioEmpresa instrutor) {
         this.instrutor = instrutor;
     }
 

@@ -11,15 +11,15 @@ import java.util.List;
 public class Instituicao extends AbstractPessoaJuridica {
 
     @Transient
-    private List<Usuario> usuarios;
+    private List<UsuarioEmpresa> usuarios;
     @Transient
     private List<Setor> setores;
 
-    public List<Usuario> getUsuarios() {
+    public List<UsuarioEmpresa> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
+    public void setUsuarios(List<UsuarioEmpresa> usuarios) {
         this.usuarios = usuarios;
     }
 

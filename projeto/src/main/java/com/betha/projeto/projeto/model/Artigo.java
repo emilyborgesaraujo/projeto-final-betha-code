@@ -18,7 +18,7 @@ public class Artigo extends AbstractEntity implements IPublicavel {
     private LocalDate dataPublicacao;
     @ManyToOne
     @JoinColumn(name = "I_USUARIO_PUBLICOU", referencedColumnName = "ID")
-    private Usuario usuarioResponsavelPubli;
+    private UsuarioEmpresa usuarioResponsavelPubli;
     @Column(name = "LINK_ARQUIVO")
     private String arquivo;
     @ManyToOne
@@ -41,11 +41,12 @@ public class Artigo extends AbstractEntity implements IPublicavel {
         this.dataPublicacao = dataPublicacao;
     }
 
-    public Usuario getUsuarioResponsavelPubli() {
+    @Override
+    public UsuarioEmpresa getUsuarioResponsavelPubli() {
         return usuarioResponsavelPubli;
     }
 
-    public void setUsuarioResponsavelPubli(Usuario usuarioResponsavelPubli) {
+    public void setUsuarioResponsavelPubli(UsuarioEmpresa usuarioResponsavelPubli) {
         this.usuarioResponsavelPubli = usuarioResponsavelPubli;
     }
 

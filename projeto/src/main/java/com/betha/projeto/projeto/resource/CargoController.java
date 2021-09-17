@@ -3,6 +3,7 @@ package com.betha.projeto.projeto.resource;
 import com.betha.projeto.projeto.model.Cargo;
 import com.betha.projeto.projeto.repository.CargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -40,5 +41,14 @@ public class CargoController {
         cargoFind.setDescricao(cargo.getDescricao());
 
         return repository.save(cargoFind);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable(value = "id") Long cargoId) throws EntityNotFoundException {
+        Cargo cargoFind = repository.findById(cargoId).orElseThrow(() -> new EntityNotFoundException("Cargo não encontrado com ID: " + cargoId));
+
+        repository.delete(cargoFind);
+
+        return ResponseEntity.noContent().build();
     }
 }
