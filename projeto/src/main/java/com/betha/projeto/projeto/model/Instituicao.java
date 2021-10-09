@@ -4,30 +4,36 @@ import com.betha.projeto.projeto.enterprise.AbstractEntity;
 import com.betha.projeto.projeto.enterprise.AbstractPessoaJuridica;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.List;
+import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+
+@Table(schema = "projeto",name = "INSTITUICAO")
 @Entity
 public class Instituicao extends AbstractPessoaJuridica {
 
-    @Transient
-    private List<UsuarioEmpresa> usuarios;
-    @Transient
-    private List<Setor> setores;
+    @OneToMany(cascade = ALL, mappedBy = "instituicao")
+    private Set<UsuarioEmpresa> usuarios;
+    @OneToMany(cascade = ALL, mappedBy = "instituicao")
+    private Set<Setor> setores;
 
-    public List<UsuarioEmpresa> getUsuarios() {
+    public Set<UsuarioEmpresa> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<UsuarioEmpresa> usuarios) {
+    public void setUsuarios(Set<UsuarioEmpresa> usuarios) {
         this.usuarios = usuarios;
     }
 
-    public List<Setor> getSetores() {
+    public Set<Setor> getSetores() {
         return setores;
     }
 
-    public void setSetores(List<Setor> setores) {
+    public void setSetores(Set<Setor> setores) {
         this.setores = setores;
     }
 }

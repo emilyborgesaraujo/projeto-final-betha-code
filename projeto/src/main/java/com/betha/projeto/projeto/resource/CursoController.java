@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/cursos")
@@ -18,20 +19,20 @@ public class CursoController {
     private CursoRepository repository;
 
     @GetMapping
-    public List<Curso> getCursos() {
-        return repository.findAll();
+    public List<CursoDTO> getCursos() {
+        return repository.findAll().stream().map(p -> CursoDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Curso getCursoId(@PathVariable(value = "id") Long cursoId) throws EntityNotFoundException {
+    public CursoDTO getCursoId(@PathVariable(value = "id") Long cursoId) throws EntityNotFoundException {
         Curso cursoFind = repository.findById(cursoId).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado com ID : " + cursoId));
 
-        return cursoFind;
+        return CursoDTO.toDTO(cursoFind);
     }
 
     @PostMapping
-    public Curso create(@RequestBody Curso curso) {
-        return repository.save(curso);
+    public CursoDTO create(@RequestBody Curso curso) {
+        return CursoDTO.toDTO(repository.save(curso));
     }
 
     @PutMapping("/{id}")
@@ -45,6 +46,7 @@ public class CursoController {
         cursoFind.setDataPublicacao(curso.getDataPublicacao());
         cursoFind.setCategoria(curso.getCategoria());
         cursoFind.setInstrutor(curso.getInstrutor());
+        cursoFind.setInstituicao(curso.getInstituicao());
 
         return repository.save(cursoFind);
     }

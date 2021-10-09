@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios-admin")
@@ -17,20 +18,20 @@ public class UsuarioAdminController {
     private UsuarioAdminRepository repository;
 
     @GetMapping
-    public List<UsuarioAdmin> getUsuariosAdmin() {
-        return repository.findAll();
+    public List<UsuarioAdminDTO> getUsuariosAdmin() {
+        return repository.findAll().stream().map(p -> UsuarioAdminDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public UsuarioAdmin getUsuarioAdminId(@PathVariable(value = "id") Long usuarioAdminId) throws EntityNotFoundException {
+    public UsuarioAdminDTO getUsuarioAdminId(@PathVariable(value = "id") Long usuarioAdminId) throws EntityNotFoundException {
         UsuarioAdmin usuarioAdminFind = repository.findById(usuarioAdminId).orElseThrow(() -> new EntityNotFoundException("Usuário admin não encontrado com ID : " + usuarioAdminId));
 
-        return usuarioAdminFind;
+        return UsuarioAdminDTO.toDTO(usuarioAdminFind);
     }
 
     @PostMapping
-    public UsuarioAdmin create(@RequestBody UsuarioAdmin usuarioAdmin) {
-        return repository.save(usuarioAdmin);
+    public UsuarioAdminDTO create(@RequestBody UsuarioAdmin usuarioAdmin) {
+        return UsuarioAdminDTO.toDTO(repository.save(usuarioAdmin));
     }
 
     @PutMapping("/{id}")

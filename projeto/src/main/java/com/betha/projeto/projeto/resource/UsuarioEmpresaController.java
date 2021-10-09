@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios-empresa")
@@ -18,20 +19,20 @@ public class UsuarioEmpresaController {
     private UsuarioEmpresaRepository repository;
 
     @GetMapping
-    public List<UsuarioEmpresa> getUsuariosEmpresa() {
-        return repository.findAll();
+    public List<UsuarioEmpresaDTO> getUsuariosEmpresa() {
+        return repository.findAll().stream().map(p -> UsuarioEmpresaDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public UsuarioEmpresa getUsuarioEmpresaId(@PathVariable(value = "id") Long usuarioEmpresaId) throws EntityNotFoundException {
+    public UsuarioEmpresaDTO getUsuarioEmpresaId(@PathVariable(value = "id") Long usuarioEmpresaId) throws EntityNotFoundException {
         UsuarioEmpresa usuarioEmpresaFind = repository.findById(usuarioEmpresaId).orElseThrow(() -> new EntityNotFoundException("Usuário da empresa não encontrado com ID : " + usuarioEmpresaId));
 
-        return usuarioEmpresaFind;
+        return UsuarioEmpresaDTO.toDTO(usuarioEmpresaFind);
     }
 
     @PostMapping
-    public UsuarioEmpresa create(@RequestBody UsuarioEmpresa usuarioEmpresa) {
-        return repository.save(usuarioEmpresa);
+    public UsuarioEmpresaDTO create(@RequestBody UsuarioEmpresa usuarioEmpresa) {
+        return UsuarioEmpresaDTO.toDTO(repository.save(usuarioEmpresa));
     }
 
     @PutMapping("/{id}")

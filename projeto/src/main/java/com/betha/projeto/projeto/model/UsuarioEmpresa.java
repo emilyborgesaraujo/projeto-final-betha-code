@@ -3,12 +3,11 @@ package com.betha.projeto.projeto.model;
 import com.betha.projeto.projeto.enterprise.AbstractPessoaFisica;
 import com.betha.projeto.projeto.enterprise.IUsuario;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.List;
 
+@Table(schema = "projeto",name = "USUARIO_EMPRESA")
+@Entity
 public class UsuarioEmpresa extends AbstractPessoaFisica implements IUsuario {
 
     @Column(name = "LOGIN")

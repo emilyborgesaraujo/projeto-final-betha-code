@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/artigos")
@@ -18,20 +19,20 @@ public class ArtigoController {
     private ArtigoRepository repository;
 
     @GetMapping
-    public List<Artigo> getArtigos() {
-        return repository.findAll();
+    public List<ArtigoDTO> getArtigos() {
+        return repository.findAll().stream().map(p -> ArtigoDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Artigo getArtigoId(@PathVariable(value = "id") Long artigoId) throws EntityNotFoundException {
+    public ArtigoDTO getArtigoId(@PathVariable(value = "id") Long artigoId) throws EntityNotFoundException {
         Artigo artigoFind = repository.findById(artigoId).orElseThrow(() -> new EntityNotFoundException("Artigo não encontrado com ID : " + artigoId));
 
-        return artigoFind;
+        return ArtigoDTO.toDTO(artigoFind);
     }
 
     @PostMapping
-    public Artigo create(@RequestBody Artigo artigo) {
-        return repository.save(artigo);
+    public ArtigoDTO create(@RequestBody Artigo artigo) {
+        return ArtigoDTO.toDTO(repository.save(artigo));
     }
 
     @PutMapping("/{id}")
@@ -44,6 +45,7 @@ public class ArtigoController {
         artigoFind.setUsuarioResponsavelPubli(artigo.getUsuarioResponsavelPubli());
         artigoFind.setArquivo(artigo.getArquivo());
         artigoFind.setCategoria(artigo.getCategoria());
+        artigoFind.setInstituicao(artigo.getInstituicao());
 
         return repository.save(artigoFind);
     }

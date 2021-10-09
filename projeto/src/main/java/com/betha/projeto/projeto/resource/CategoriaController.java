@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categorias")
@@ -17,20 +18,20 @@ public class CategoriaController {
     private CategoriaRepository repository;
 
     @GetMapping
-    public List<Categoria> getCategorias() {
-        return repository.findAll();
+    public List<CategoriaDTO> getCategorias() {
+        return repository.findAll().stream().map(p -> CategoriaDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Categoria getCategoriaId(@PathVariable(value = "id") Long categoriaId) throws EntityNotFoundException {
+    public CategoriaDTO getCategoriaId(@PathVariable(value = "id") Long categoriaId) throws EntityNotFoundException {
         Categoria categoriaFind = repository.findById(categoriaId).orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada com ID : " + categoriaId));
 
-        return categoriaFind;
+        return CategoriaDTO.toDTO(categoriaFind);
     }
 
     @PostMapping
-    public Categoria create(@RequestBody Categoria categoria) {
-        return repository.save(categoria);
+    public CategoriaDTO create(@RequestBody Categoria categoria) {
+        return CategoriaDTO.toDTO(repository.save(categoria));
     }
 
     @PutMapping("/{id}")
@@ -39,6 +40,7 @@ public class CategoriaController {
 
         categoriaFind.setId(categoria.getId());
         categoriaFind.setDescricao(categoria.getDescricao());
+        categoriaFind.setInstituicao(categoria.getInstituicao());
 
         return repository.save(categoriaFind);
     }

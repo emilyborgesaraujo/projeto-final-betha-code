@@ -3,12 +3,10 @@ package com.betha.projeto.projeto.model;
 import com.betha.projeto.projeto.enterprise.AbstractEntity;
 import com.betha.projeto.projeto.enterprise.IPublicavel;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Table(schema = "projeto",name = "ARTIGO")
 @Entity
 public class Artigo extends AbstractEntity implements IPublicavel {
 
@@ -24,6 +22,9 @@ public class Artigo extends AbstractEntity implements IPublicavel {
     @ManyToOne
     @JoinColumn(name = "I_CATEGORIA", referencedColumnName = "ID")
     private Categoria categoria;
+    @ManyToOne
+    @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
+    private Instituicao instituicao;
 
     public String getDescricao() {
         return descricao;
@@ -64,5 +65,13 @@ public class Artigo extends AbstractEntity implements IPublicavel {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 }

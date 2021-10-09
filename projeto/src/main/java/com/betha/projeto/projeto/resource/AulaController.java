@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/aulas")
@@ -17,20 +18,20 @@ public class AulaController {
     private AulaRepository repository;
 
     @GetMapping
-    public List<Aula> getAulas() {
-        return repository.findAll();
+    public List<AulaDTO> getAulas() {
+        return repository.findAll().stream().map(p -> AulaDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Aula getAulaId(@PathVariable(value = "id") Long aulaId) throws EntityNotFoundException {
+    public AulaDTO getAulaId(@PathVariable(value = "id") Long aulaId) throws EntityNotFoundException {
         Aula aulaFind = repository.findById(aulaId).orElseThrow(() -> new EntityNotFoundException("Aula não encontrada com ID : " + aulaId));
 
-        return aulaFind;
+        return AulaDTO.toDTO(aulaFind);
     }
 
     @PostMapping
-    public Aula create(@RequestBody Aula aula) {
-        return repository.save(aula);
+    public AulaDTO create(@RequestBody Aula aula) {
+        return AulaDTO.toDTO(repository.save(aula));
     }
 
     @PutMapping("/{id}")
@@ -42,6 +43,7 @@ public class AulaController {
         aulaFind.setResumo(aula.getResumo());
         aulaFind.setDuracao(aula.getDuracao());
         aulaFind.setVideo(aula.getVideo());
+        aulaFind.setCurso(aula.getCurso());
 
         return repository.save(aulaFind);
     }

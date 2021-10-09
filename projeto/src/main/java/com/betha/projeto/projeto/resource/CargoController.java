@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/cargos")
@@ -17,20 +18,20 @@ public class CargoController {
     private CargoRepository repository;
 
     @GetMapping
-    public List<Cargo> getCargos() {
-        return repository.findAll();
+    public List<CargoDTO> getCargos() {
+        return repository.findAll().stream().map(p -> CargoDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Cargo getCargosId(@PathVariable(value = "id") Long cargoId) throws EntityNotFoundException {
+    public CargoDTO getCargosId(@PathVariable(value = "id") Long cargoId) throws EntityNotFoundException {
         Cargo cargoFind = repository.findById(cargoId).orElseThrow(() -> new EntityNotFoundException("Cargo não encontrado com ID : " + cargoId));
 
-        return cargoFind;
+        return CargoDTO.toDTO(cargoFind);
     }
 
     @PostMapping
-    public Cargo create(@RequestBody Cargo cargo) {
-        return repository.save(cargo);
+    public CargoDTO create(@RequestBody Cargo cargo) {
+        return CargoDTO.toDTO(repository.save(cargo));
     }
 
     @PutMapping("/{id}")
@@ -39,6 +40,7 @@ public class CargoController {
 
         cargoFind.setId(cargo.getId());
         cargoFind.setDescricao(cargo.getDescricao());
+        cargoFind.setInstituicao(cargo.getInstituicao());
 
         return repository.save(cargoFind);
     }

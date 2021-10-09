@@ -6,7 +6,11 @@ import com.betha.projeto.projeto.enterprise.IPublicavel;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+
+@Table(schema = "projeto",name = "CURSO")
 @Entity
 public class Curso extends AbstractEntity implements IPublicavel {
 
@@ -24,8 +28,11 @@ public class Curso extends AbstractEntity implements IPublicavel {
     @ManyToOne
     @JoinColumn(name = "I_INSTRUTOR", referencedColumnName = "ID")
     private UsuarioEmpresa instrutor;
-    @Transient
-    private List<Aula> aulas;
+    @OneToMany(cascade = ALL, mappedBy = "curso")
+    private Set<Aula> aulas;
+    @ManyToOne
+    @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
+    private Instituicao instituicao;
 
     public String getDescricao() {
         return descricao;
@@ -80,11 +87,19 @@ public class Curso extends AbstractEntity implements IPublicavel {
         this.instrutor = instrutor;
     }
 
-    public List<Aula> getAulas() {
+    public Set<Aula> getAulas() {
         return aulas;
     }
 
-    public void setAulas(List<Aula> aulas) {
+    public void setAulas(Set<Aula> aulas) {
         this.aulas = aulas;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 }

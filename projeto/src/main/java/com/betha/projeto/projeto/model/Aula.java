@@ -2,9 +2,9 @@ package com.betha.projeto.projeto.model;
 
 import com.betha.projeto.projeto.enterprise.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
+@Table(schema = "projeto",name = "AULA")
 @Entity
 public class Aula extends AbstractEntity {
 
@@ -16,6 +16,9 @@ public class Aula extends AbstractEntity {
     private String duracao;
     @Column(name = "LINK_VIDEO")
     private String video;
+    @ManyToOne
+    @JoinColumn(name = "I_CURSO", referencedColumnName = "ID")
+    private Curso curso;
 
     public String getDescricao() {
         return descricao;
@@ -47,5 +50,13 @@ public class Aula extends AbstractEntity {
 
     public void setVideo(String video) {
         this.video = video;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 }

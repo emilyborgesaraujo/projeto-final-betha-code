@@ -2,18 +2,21 @@ package com.betha.projeto.projeto.model;
 
 import com.betha.projeto.projeto.enterprise.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
+@Table(schema = "projeto",name = "SETOR")
 @Entity
 public class Setor extends AbstractEntity {
 
     @Column(name = "DESCRICAO")
     private String descricao;
+    @ManyToOne
+    @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
+    private Instituicao instituicao;
     @Transient
-    private List<Cargo> cargos;
+    private Set<Cargo> cargos;
 
     public String getDescricao() {
         return descricao;
@@ -23,11 +26,19 @@ public class Setor extends AbstractEntity {
         this.descricao = descricao;
     }
 
-    public List<Cargo> getCargos() {
+    public Set<Cargo> getCargos() {
         return cargos;
     }
 
-    public void setCargos(List<Cargo> cargos) {
+    public void setCargos(Set<Cargo> cargos) {
         this.cargos = cargos;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 }

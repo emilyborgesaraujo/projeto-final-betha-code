@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/instituicoes")
@@ -18,20 +19,20 @@ public class InstituicaoController {
     private InstituicaoRepository repository;
 
     @GetMapping
-    public List<Instituicao> getInstituicoes() {
-        return repository.findAll();
+    public List<InstituicaoDTO> getInstituicoes() {
+        return repository.findAll().stream().map(p -> InstituicaoDTO.toDTO(p)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Instituicao getInstituicaoId(@PathVariable(value = "id") Long instituicaoId) throws EntityNotFoundException {
+    public InstituicaoDTO getInstituicaoId(@PathVariable(value = "id") Long instituicaoId) throws EntityNotFoundException {
         Instituicao instituicaoFind = repository.findById(instituicaoId).orElseThrow(() -> new EntityNotFoundException("Instituição não encontrada com ID : " + instituicaoId));
 
-        return instituicaoFind;
+        return InstituicaoDTO.toDTO(instituicaoFind);
     }
 
     @PostMapping
-    public Instituicao create(@RequestBody Instituicao instituicao) {
-        return repository.save(instituicao);
+    public InstituicaoDTO create(@RequestBody Instituicao instituicao) {
+        return InstituicaoDTO.toDTO(repository.save(instituicao));
     }
 
     @PutMapping("/{id}")

@@ -5,9 +5,11 @@ import com.betha.projeto.projeto.enterprise.IUsuario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.List;
 
+@Table(schema = "projeto",name = "USUARIO_ADMIN")
 @Entity
 public class UsuarioAdmin extends AbstractPessoaFisica implements IUsuario {
 
@@ -15,8 +17,6 @@ public class UsuarioAdmin extends AbstractPessoaFisica implements IUsuario {
     private String login;
     @Column(name = "SENHA")
     private String senha;
-    @Transient
-    private List<Instituicao> instituicoes;
 
     @Override
     public String getLogin() {
@@ -34,13 +34,5 @@ public class UsuarioAdmin extends AbstractPessoaFisica implements IUsuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public List<Instituicao> getInstituicoes() {
-        return instituicoes;
-    }
-
-    public void setInstituicoes(List<Instituicao> instituicoes) {
-        this.instituicoes = instituicoes;
     }
 }
