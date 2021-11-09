@@ -33,6 +33,8 @@ public class Curso extends AbstractEntity implements IPublicavel {
     @ManyToOne
     @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
     private Instituicao instituicao;
+    @Column(name = "STATUS_CURSO")
+    private StatusCurso statusCurso;
 
     public String getDescricao() {
         return descricao;
@@ -40,6 +42,14 @@ public class Curso extends AbstractEntity implements IPublicavel {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public StatusCurso getStatusCurso() {
+        return statusCurso;
+    }
+
+    public void setStatusCurso(StatusCurso statusCurso) {
+        this.statusCurso = statusCurso;
     }
 
     public String getObjetivo() {

@@ -41,6 +41,7 @@ public class SetorController {
         setorFind.setId(setor.getId());
         setorFind.setDescricao(setor.getDescricao());
         setorFind.setInstituicao(setor.getInstituicao());
+        setorFind.setCargos(setor.getCargos());
 
         return repository.save(setorFind);
     }

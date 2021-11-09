@@ -1,8 +1,9 @@
 package com.betha.projeto.projeto.resource;
 
-import com.betha.projeto.projeto.model.UsuarioEmpresa;
+import com.betha.projeto.projeto.model.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class UsuarioEmpresaDTO {
 
@@ -16,6 +17,10 @@ public class UsuarioEmpresaDTO {
     private String senha;
     private CargoResumidoDTO cargo;
     private InstituicaoResumidoDTO instituicao;
+    private Sexo sexo;
+    private List<Artigo> meusArtigos;
+    private List<Curso> meusCursos;
+    private NivelUsuario nivelUsuario;
 
     public Long getId() {
         return id;
@@ -23,6 +28,14 @@ public class UsuarioEmpresaDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 
     public String getNome() {
@@ -97,6 +110,30 @@ public class UsuarioEmpresaDTO {
         this.instituicao = instituicao;
     }
 
+    public List<Artigo> getMeusArtigos() {
+        return meusArtigos;
+    }
+
+    public void setMeusArtigos(List<Artigo> meusArtigos) {
+        this.meusArtigos = meusArtigos;
+    }
+
+    public List<Curso> getMeusCursos() {
+        return meusCursos;
+    }
+
+    public void setMeusCursos(List<Curso> meusCursos) {
+        this.meusCursos = meusCursos;
+    }
+
+    public NivelUsuario getNivelUsuario() {
+        return nivelUsuario;
+    }
+
+    public void setNivelUsuario(NivelUsuario nivelUsuario) {
+        this.nivelUsuario = nivelUsuario;
+    }
+
     public static UsuarioEmpresaDTO toDTO(UsuarioEmpresa usuarioEmpresa) {
         UsuarioEmpresaDTO dto = new UsuarioEmpresaDTO();
         dto.setId(usuarioEmpresa.getId());
@@ -109,6 +146,10 @@ public class UsuarioEmpresaDTO {
         dto.setSenha(usuarioEmpresa.getSenha());
         dto.setCargo(CargoResumidoDTO.toDTO(usuarioEmpresa.getCargo()));
         dto.setInstituicao(InstituicaoResumidoDTO.toDTO(usuarioEmpresa.getInstituicao()));
+        dto.setSexo(usuarioEmpresa.getSexo());
+        dto.setMeusArtigos(usuarioEmpresa.getMeusArtigos());
+        dto.setMeusCursos(usuarioEmpresa.getMeusCursos());
+        dto.setNivelUsuario(usuarioEmpresa.getNivelUsuario());
         return dto;
     }
 
@@ -122,6 +163,10 @@ public class UsuarioEmpresaDTO {
         entity.setDataNascimento(dto.getDataNascimento());
         entity.setLogin(dto.getLogin());
         entity.setSenha(dto.getSenha());
+        entity.setSexo(dto.getSexo());
+        entity.setMeusArtigos(dto.getMeusArtigos());
+        entity.setMeusCursos(dto.getMeusCursos());
+        entity.setNivelUsuario(dto.getNivelUsuario());
         return entity;
     }
 }

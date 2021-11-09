@@ -1,5 +1,6 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.model.Sexo;
 import com.betha.projeto.projeto.model.UsuarioAdmin;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class UsuarioAdminDTO {
     private LocalDate dataNascimento;
     private String login;
     private String senha;
+    private Sexo sexo;
 
     public Long getId() {
         return id;
@@ -21,6 +23,14 @@ public class UsuarioAdminDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 
     public String getNome() {
@@ -89,6 +99,7 @@ public class UsuarioAdminDTO {
         dto.setDataNascimento(usuarioAdmin.getDataNascimento());
         dto.setLogin(usuarioAdmin.getLogin());
         dto.setSenha(usuarioAdmin.getSenha());
+        dto.setSexo(usuarioAdmin.getSexo());
         return dto;
     }
 
@@ -102,6 +113,7 @@ public class UsuarioAdminDTO {
         entity.setDataNascimento(dto.getDataNascimento());
         entity.setLogin(dto.getLogin());
         entity.setSenha(dto.getSenha());
+        entity.setSexo(dto.getSexo());
         return entity;
     }
 }

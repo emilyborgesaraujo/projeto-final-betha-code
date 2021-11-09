@@ -15,7 +15,12 @@ public class Setor extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
     private Instituicao instituicao;
-    @Transient
+    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @JoinTable(
+            name = "setor_cargos",
+            joinColumns = {@JoinColumn(name = "setor_id")},
+            inverseJoinColumns = {@JoinColumn(name = "cargos_id")}
+    )
     private Set<Cargo> cargos;
 
     public String getDescricao() {

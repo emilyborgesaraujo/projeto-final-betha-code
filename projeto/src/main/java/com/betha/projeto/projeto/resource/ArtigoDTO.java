@@ -1,6 +1,7 @@
 package com.betha.projeto.projeto.resource;
 
 import com.betha.projeto.projeto.model.Artigo;
+import com.betha.projeto.projeto.model.StatusArtigo;
 
 import java.time.LocalDate;
 
@@ -13,6 +14,7 @@ public class ArtigoDTO {
     private String arquivo;
     private CategoriaResumidoDTO categoria;
     private InstituicaoResumidoDTO instituicao;
+    private StatusArtigo statusArtigo;
 
     public Long getId() {
         return id;
@@ -20,6 +22,14 @@ public class ArtigoDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public StatusArtigo getStatusArtigo() {
+        return statusArtigo;
+    }
+
+    public void setStatusArtigo(StatusArtigo statusArtigo) {
+        this.statusArtigo = statusArtigo;
     }
 
     public String getDescricao() {
@@ -79,6 +89,7 @@ public class ArtigoDTO {
         dto.setArquivo(artigo.getArquivo());
         dto.setCategoria(CategoriaResumidoDTO.toDTO(artigo.getCategoria()));
         dto.setInstituicao(InstituicaoResumidoDTO.toDTO(artigo.getInstituicao()));
+        dto.setStatusArtigo(artigo.getStatusArtigo());
         return dto;
     }
 
@@ -88,6 +99,7 @@ public class ArtigoDTO {
         entity.setDescricao(dto.getDescricao());
         entity.setDataPublicacao(dto.getDataPublicacao());
         entity.setArquivo(dto.getArquivo());
+        entity.setStatusArtigo(dto.getStatusArtigo());
         return entity;
     }
 }

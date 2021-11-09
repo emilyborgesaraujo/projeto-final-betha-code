@@ -46,6 +46,7 @@ public class UsuarioAdminController {
         usuarioAdminFind.setDataNascimento(usuarioAdmin.getDataNascimento());
         usuarioAdminFind.setEmail(usuarioAdmin.getEmail());
         usuarioAdminFind.setSenha(usuarioAdminFind.getSenha());
+        usuarioAdminFind.setSexo(usuarioAdmin.getSexo());
 
         return repository.save(usuarioAdminFind);
     }

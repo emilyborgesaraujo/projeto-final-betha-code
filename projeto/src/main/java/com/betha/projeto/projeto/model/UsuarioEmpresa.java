@@ -14,9 +14,21 @@ public class UsuarioEmpresa extends AbstractPessoaFisica implements IUsuario {
     private String login;
     @Column(name = "SENHA")
     private String senha;
-    @Transient
+    @Column(name = "NIVEL_USUARIO")
+    private NivelUsuario nivelUsuario;
+    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @JoinTable(
+            name = "usuarioEmpresa_cursos",
+            joinColumns = {@JoinColumn(name = "usuarioEmpresa_id")},
+            inverseJoinColumns = {@JoinColumn(name = "curso_id")}
+    )
     private List<Curso> meusCursos;
-    @Transient
+    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @JoinTable(
+            name = "usuarioEmpresa_artigos",
+            joinColumns = {@JoinColumn(name = "usuarioEmpresa_id")},
+            inverseJoinColumns = {@JoinColumn(name = "artigo_id")}
+    )
     private List<Artigo> meusArtigos;
     @ManyToOne
     @JoinColumn(name = "I_CARGO", referencedColumnName = "ID")
@@ -41,6 +53,14 @@ public class UsuarioEmpresa extends AbstractPessoaFisica implements IUsuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public NivelUsuario getNivelUsuario() {
+        return nivelUsuario;
+    }
+
+    public void setNivelUsuario(NivelUsuario nivelUsuario) {
+        this.nivelUsuario = nivelUsuario;
     }
 
     public List<Curso> getMeusCursos() {

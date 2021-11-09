@@ -46,6 +46,7 @@ public class ArtigoController {
         artigoFind.setArquivo(artigo.getArquivo());
         artigoFind.setCategoria(artigo.getCategoria());
         artigoFind.setInstituicao(artigo.getInstituicao());
+        artigoFind.setStatusArtigo(artigo.getStatusArtigo());
 
         return repository.save(artigoFind);
     }

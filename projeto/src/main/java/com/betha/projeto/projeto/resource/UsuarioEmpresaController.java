@@ -49,6 +49,10 @@ public class UsuarioEmpresaController {
         usuarioEmpresaFind.setSenha(usuarioEmpresa.getSenha());
         usuarioEmpresaFind.setCargo(usuarioEmpresa.getCargo());
         usuarioEmpresaFind.setInstituicao(usuarioEmpresa.getInstituicao());
+        usuarioEmpresaFind.setSexo(usuarioEmpresa.getSexo());
+        usuarioEmpresaFind.setMeusArtigos(usuarioEmpresa.getMeusArtigos());
+        usuarioEmpresaFind.setMeusCursos(usuarioEmpresa.getMeusCursos());
+        usuarioEmpresaFind.setNivelUsuario(usuarioEmpresa.getNivelUsuario());
 
         return repository.save(usuarioEmpresaFind);
     }

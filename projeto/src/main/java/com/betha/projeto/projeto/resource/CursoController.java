@@ -47,6 +47,7 @@ public class CursoController {
         cursoFind.setCategoria(curso.getCategoria());
         cursoFind.setInstrutor(curso.getInstrutor());
         cursoFind.setInstituicao(curso.getInstituicao());
+        cursoFind.setStatusCurso(curso.getStatusCurso());
 
         return repository.save(cursoFind);
     }

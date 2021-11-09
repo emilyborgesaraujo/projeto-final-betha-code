@@ -2,6 +2,7 @@ package com.betha.projeto.projeto.resource;
 
 import com.betha.projeto.projeto.model.Aula;
 import com.betha.projeto.projeto.model.Curso;
+import com.betha.projeto.projeto.model.StatusCurso;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -18,6 +19,7 @@ public class CursoDTO {
     private UsuarioEmpresaResumidoDTO instrutor;
     private InstituicaoResumidoDTO instituicao;
     private Set<AulaResumidoDTO> aulas;
+    private StatusCurso statusCurso;
 
     public Long getId() {
         return id;
@@ -25,6 +27,14 @@ public class CursoDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public StatusCurso getStatusCurso() {
+        return statusCurso;
+    }
+
+    public void setStatusCurso(StatusCurso statusCurso) {
+        this.statusCurso = statusCurso;
     }
 
     public String getDescricao() {
@@ -102,6 +112,7 @@ public class CursoDTO {
         dto.setInstrutor(UsuarioEmpresaResumidoDTO.toDTO(curso.getInstrutor()));
         dto.setInstituicao(InstituicaoResumidoDTO.toDTO(curso.getInstituicao()));
         dto.setAulas(curso.getAulas() == null? null :curso.getAulas().stream().map(AulaResumidoDTO::toDTO).collect(Collectors.toSet()));
+        dto.setStatusCurso(curso.getStatusCurso());
         return dto;
     }
 
@@ -112,6 +123,7 @@ public class CursoDTO {
         entity.setObjetivo(dto.getObjetivo());
         entity.setDuracaoTotal(dto.getDuracaoTotal());
         entity.setDataPublicacao(dto.getDataPublicacao());
+        entity.setStatusCurso(dto.getStatusCurso());
         entity.setAulas(dto.getAulas().stream().map(AulaResumidoDTO::fromDTO).collect(Collectors.toSet()));
         return entity;
     }
