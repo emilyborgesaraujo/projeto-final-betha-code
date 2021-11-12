@@ -8,12 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/instituicoes")
-public class InstituicaoController {
+public class InstituicaoController extends AbstractResource{
 
     @Autowired
     private InstituicaoRepository repository;
@@ -31,7 +32,7 @@ public class InstituicaoController {
     }
 
     @PostMapping
-    public InstituicaoDTO create(@RequestBody Instituicao instituicao) {
+    public InstituicaoDTO create(@Valid @RequestBody Instituicao instituicao) {
         return InstituicaoDTO.toDTO(repository.save(instituicao));
     }
 

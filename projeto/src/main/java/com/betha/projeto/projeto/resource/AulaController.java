@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/aulas")
-public class AulaController {
+public class AulaController extends AbstractResource{
 
     @Autowired
     private AulaRepository repository;
@@ -30,7 +31,7 @@ public class AulaController {
     }
 
     @PostMapping
-    public AulaDTO create(@RequestBody Aula aula) {
+    public AulaDTO create(@Valid @RequestBody Aula aula) {
         return AulaDTO.toDTO(repository.save(aula));
     }
 

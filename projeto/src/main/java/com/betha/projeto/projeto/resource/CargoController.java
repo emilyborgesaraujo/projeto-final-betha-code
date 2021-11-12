@@ -7,12 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/cargos")
-public class CargoController {
+public class CargoController extends AbstractResource{
 
     @Autowired
     private CargoRepository repository;
@@ -30,7 +31,7 @@ public class CargoController {
     }
 
     @PostMapping
-    public CargoDTO create(@RequestBody Cargo cargo) {
+    public CargoDTO create(@Valid @RequestBody Cargo cargo) {
         return CargoDTO.toDTO(repository.save(cargo));
     }
 

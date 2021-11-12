@@ -8,12 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/artigos")
-public class ArtigoController {
+public class ArtigoController extends AbstractResource {
 
     @Autowired
     private ArtigoRepository repository;
@@ -31,7 +32,7 @@ public class ArtigoController {
     }
 
     @PostMapping
-    public ArtigoDTO create(@RequestBody Artigo artigo) {
+    public ArtigoDTO create(@Valid @RequestBody Artigo artigo) {
         return ArtigoDTO.toDTO(repository.save(artigo));
     }
 

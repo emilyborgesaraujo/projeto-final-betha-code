@@ -1,5 +1,6 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.enterprise.ValidationException;
 import com.betha.projeto.projeto.model.UsuarioAdmin;
 import com.betha.projeto.projeto.repository.UsuarioAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios-admin")
-public class UsuarioAdminController {
+public class UsuarioAdminController extends AbstractResource{
 
     @Autowired
     private UsuarioAdminRepository repository;
@@ -30,7 +32,14 @@ public class UsuarioAdminController {
     }
 
     @PostMapping
-    public UsuarioAdminDTO create(@RequestBody UsuarioAdmin usuarioAdmin) {
+    public UsuarioAdminDTO create(@Valid @RequestBody UsuarioAdmin usuarioAdmin) throws com.betha.projeto.projeto.enterprise.ValidationException {
+
+        List<UsuarioAdmin> byLogin = repository.findByLogin(usuarioAdmin.getLogin());
+
+        if(!byLogin.isEmpty()) {
+            throw new ValidationException("Já existe um usuário com o mesmo login registrado!");
+        }
+
         return UsuarioAdminDTO.toDTO(repository.save(usuarioAdmin));
     }
 

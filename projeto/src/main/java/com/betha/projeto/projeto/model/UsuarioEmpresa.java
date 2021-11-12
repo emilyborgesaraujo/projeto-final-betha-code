@@ -4,16 +4,20 @@ import com.betha.projeto.projeto.enterprise.AbstractPessoaFisica;
 import com.betha.projeto.projeto.enterprise.IUsuario;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Table(schema = "projeto",name = "USUARIO_EMPRESA")
 @Entity
 public class UsuarioEmpresa extends AbstractPessoaFisica implements IUsuario {
 
+    @NotNull
     @Column(name = "LOGIN")
     private String login;
+    @NotNull
     @Column(name = "SENHA")
     private String senha;
+    @NotNull
     @Column(name = "NIVEL_USUARIO")
     private NivelUsuario nivelUsuario;
     @ManyToMany(cascade = {CascadeType.REFRESH})
@@ -33,6 +37,7 @@ public class UsuarioEmpresa extends AbstractPessoaFisica implements IUsuario {
     @ManyToOne
     @JoinColumn(name = "I_CARGO", referencedColumnName = "ID")
     private Cargo cargo;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
     private Instituicao instituicao;

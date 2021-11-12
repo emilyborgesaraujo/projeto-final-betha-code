@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/setores")
-public class SetorController {
+public class SetorController extends AbstractResource{
 
     @Autowired
     private SetorRepository repository;
@@ -30,7 +31,7 @@ public class SetorController {
     }
 
     @PostMapping
-    public SetorDTO create(@RequestBody Setor setor) {
+    public SetorDTO create(@Valid @RequestBody Setor setor) {
         return SetorDTO.toDTO(repository.save(setor));
     }
 

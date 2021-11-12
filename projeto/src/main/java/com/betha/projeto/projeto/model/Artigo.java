@@ -14,19 +14,25 @@ public class Artigo extends AbstractEntity implements IPublicavel {
     @NotNull
     @Column(name = "DESCRICAO")
     private String descricao;
+    @NotNull
     @Column(name = "DATA_PUBLICACAO")
     private LocalDate dataPublicacao;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_USUARIO_PUBLICOU", referencedColumnName = "ID")
     private UsuarioEmpresa usuarioResponsavelPubli;
+    @NotNull
     @Column(name = "LINK_ARQUIVO")
     private String arquivo;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_CATEGORIA", referencedColumnName = "ID")
     private Categoria categoria;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
     private Instituicao instituicao;
+    @NotNull
     @Column(name = "STATUS_ARTIGO")
     private StatusArtigo statusArtigo;
 

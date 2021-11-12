@@ -3,6 +3,7 @@ package com.betha.projeto.projeto.model;
 import com.betha.projeto.projeto.enterprise.AbstractEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -10,11 +11,14 @@ import java.util.Set;
 @Entity
 public class Setor extends AbstractEntity {
 
+    @NotNull
     @Column(name = "DESCRICAO")
     private String descricao;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
     private Instituicao instituicao;
+    @NotNull
     @ManyToMany(cascade = {CascadeType.REFRESH})
     @JoinTable(
             name = "setor_cargos",

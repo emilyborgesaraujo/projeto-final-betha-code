@@ -4,6 +4,7 @@ import com.betha.projeto.projeto.enterprise.AbstractEntity;
 import com.betha.projeto.projeto.enterprise.IPublicavel;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -14,25 +15,34 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class Curso extends AbstractEntity implements IPublicavel {
 
+    @NotNull
     @Column(name = "DESCRICAO")
     private String descricao;
+    @NotNull
     @Column(name = "OBJETIVO")
     private String objetivo;
+    @NotNull
     @Column(name = "DURACAO_TOTAL")
     private String duracaoTotal;
+    @NotNull
     @Column(name = "DATA_PUBLICACAO")
     private LocalDate dataPublicacao;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_CATEGORIA", referencedColumnName = "ID")
     private Categoria categoria;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_INSTRUTOR", referencedColumnName = "ID")
     private UsuarioEmpresa instrutor;
+    @NotNull
     @OneToMany(cascade = ALL, mappedBy = "curso")
     private Set<Aula> aulas;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
     private Instituicao instituicao;
+    @NotNull
     @Column(name = "STATUS_CURSO")
     private StatusCurso statusCurso;
 

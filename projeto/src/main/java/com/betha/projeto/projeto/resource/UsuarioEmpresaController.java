@@ -1,5 +1,6 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.enterprise.ValidationException;
 import com.betha.projeto.projeto.model.Cargo;
 import com.betha.projeto.projeto.model.UsuarioEmpresa;
 import com.betha.projeto.projeto.repository.UsuarioEmpresaRepository;
@@ -8,12 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios-empresa")
-public class UsuarioEmpresaController {
+public class UsuarioEmpresaController extends AbstractResource{
 
     @Autowired
     private UsuarioEmpresaRepository repository;
@@ -31,7 +33,15 @@ public class UsuarioEmpresaController {
     }
 
     @PostMapping
-    public UsuarioEmpresaDTO create(@RequestBody UsuarioEmpresa usuarioEmpresa) {
+    public UsuarioEmpresaDTO create(@Valid @RequestBody UsuarioEmpresa usuarioEmpresa) throws com.betha.projeto.projeto.enterprise.ValidationException {
+
+        List<UsuarioEmpresa> byLogin = repository.findByLogin(usuarioEmpresa.getLogin());
+
+        if(!byLogin.isEmpty()) {
+            throw new ValidationException("Já existe um usuário com o mesmo login registrado!");
+        }
+
+
         return UsuarioEmpresaDTO.toDTO(repository.save(usuarioEmpresa));
     }
 

@@ -3,19 +3,24 @@ package com.betha.projeto.projeto.model;
 import com.betha.projeto.projeto.enterprise.AbstractEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Table(schema = "projeto",name = "AULA")
 @Entity
 public class Aula extends AbstractEntity {
 
+    @NotNull
     @Column(name = "DESCRICAO")
     private String descricao;
     @Column(name = "RESUMO")
     private String resumo;
+    @NotNull
     @Column(name = "DURACAO")
     private String duracao;
+    @NotNull
     @Column(name = "LINK_VIDEO")
     private String video;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "I_CURSO", referencedColumnName = "ID")
     private Curso curso;

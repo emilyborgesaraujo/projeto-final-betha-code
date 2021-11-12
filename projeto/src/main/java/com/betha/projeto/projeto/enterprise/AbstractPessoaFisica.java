@@ -4,12 +4,16 @@ import com.betha.projeto.projeto.model.Sexo;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Date;
 
 @MappedSuperclass
 public abstract class AbstractPessoaFisica extends AbstractPessoa{
 
+    @NotNull
+    @Size(max = 14, min = 11)
     @Column(name = "CPF")
     private String cpf;
     @Column(name = "DATA_NASCIMENTO")

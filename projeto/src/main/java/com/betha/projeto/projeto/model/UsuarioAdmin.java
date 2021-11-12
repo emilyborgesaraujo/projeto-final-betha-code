@@ -7,14 +7,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Table(schema = "projeto",name = "USUARIO_ADMIN")
 @Entity
 public class UsuarioAdmin extends AbstractPessoaFisica implements IUsuario {
 
+    @NotNull
     @Column(name = "LOGIN")
     private String login;
+    @NotNull
     @Column(name = "SENHA")
     private String senha;
 
