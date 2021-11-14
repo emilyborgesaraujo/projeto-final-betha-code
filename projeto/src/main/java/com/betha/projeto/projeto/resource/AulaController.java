@@ -1,13 +1,17 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.model.Artigo;
 import com.betha.projeto.projeto.model.Aula;
 import com.betha.projeto.projeto.model.Cargo;
 import com.betha.projeto.projeto.repository.AulaRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +23,11 @@ public class AulaController extends AbstractResource{
     private AulaRepository repository;
 
     @GetMapping
-    public List<AulaDTO> getAulas() {
-        return repository.findAll().stream().map(p -> AulaDTO.toDTO(p)).collect(Collectors.toList());
+    public List<AulaDTO> getAulas(@QuerydslPredicate(root = Aula.class) Predicate predicate) {
+        List<AulaDTO> result = new ArrayList<>();
+        Iterable<Aula> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(AulaDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")

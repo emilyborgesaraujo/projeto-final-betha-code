@@ -1,14 +1,18 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.model.Artigo;
 import com.betha.projeto.projeto.model.Cargo;
 import com.betha.projeto.projeto.model.Curso;
 import com.betha.projeto.projeto.repository.CursoRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +24,11 @@ public class CursoController extends AbstractResource {
     private CursoRepository repository;
 
     @GetMapping
-    public List<CursoDTO> getCursos() {
-        return repository.findAll().stream().map(p -> CursoDTO.toDTO(p)).collect(Collectors.toList());
+    public List<CursoDTO> getCursos(@QuerydslPredicate(root = Curso.class) Predicate predicate) {
+        List<CursoDTO> result = new ArrayList<>();
+        Iterable<Curso> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(CursoDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")

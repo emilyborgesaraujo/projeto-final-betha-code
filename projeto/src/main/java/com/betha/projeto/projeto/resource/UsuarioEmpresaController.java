@@ -1,16 +1,22 @@
 package com.betha.projeto.projeto.resource;
 
 import com.betha.projeto.projeto.enterprise.ValidationException;
+import com.betha.projeto.projeto.model.Artigo;
 import com.betha.projeto.projeto.model.Cargo;
+import com.betha.projeto.projeto.model.QUsuarioEmpresa;
 import com.betha.projeto.projeto.model.UsuarioEmpresa;
 import com.betha.projeto.projeto.repository.UsuarioEmpresaRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,8 +27,11 @@ public class UsuarioEmpresaController extends AbstractResource{
     private UsuarioEmpresaRepository repository;
 
     @GetMapping
-    public List<UsuarioEmpresaDTO> getUsuariosEmpresa() {
-        return repository.findAll().stream().map(p -> UsuarioEmpresaDTO.toDTO(p)).collect(Collectors.toList());
+    public List<UsuarioEmpresaDTO> getUsuariosEmpresa(@QuerydslPredicate(root = UsuarioEmpresa.class) Predicate predicate) {
+        List<UsuarioEmpresaDTO> result = new ArrayList<>();
+        Iterable<UsuarioEmpresa> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(UsuarioEmpresaDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")
@@ -35,9 +44,9 @@ public class UsuarioEmpresaController extends AbstractResource{
     @PostMapping
     public UsuarioEmpresaDTO create(@Valid @RequestBody UsuarioEmpresa usuarioEmpresa) throws com.betha.projeto.projeto.enterprise.ValidationException {
 
-        List<UsuarioEmpresa> byLogin = repository.findByLogin(usuarioEmpresa.getLogin());
+        Optional<UsuarioEmpresa> one = repository.findOne(QUsuarioEmpresa.usuarioEmpresa.login.eq(usuarioEmpresa.getLogin()).and(QUsuarioEmpresa.usuarioEmpresa.instituicao.eq(usuarioEmpresa.getInstituicao())));
 
-        if(!byLogin.isEmpty()) {
+        if(one.isPresent()) {
             throw new ValidationException("Já existe um usuário com o mesmo login registrado!");
         }
 

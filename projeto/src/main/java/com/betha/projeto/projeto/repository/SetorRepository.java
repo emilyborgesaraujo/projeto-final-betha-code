@@ -4,12 +4,13 @@ import com.betha.projeto.projeto.model.Aula;
 import com.betha.projeto.projeto.model.Instituicao;
 import com.betha.projeto.projeto.model.Setor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface SetorRepository extends JpaRepository<Setor, Long> {
+public interface SetorRepository extends JpaRepository<Setor, Long>, QuerydslPredicateExecutor<Setor> {
 
     List<Setor> findByDescricao(String descricao);
 

@@ -1,14 +1,18 @@
 package com.betha.projeto.projeto.resource;
 
 import com.betha.projeto.projeto.enterprise.ValidationException;
+import com.betha.projeto.projeto.model.Artigo;
 import com.betha.projeto.projeto.model.UsuarioAdmin;
 import com.betha.projeto.projeto.repository.UsuarioAdminRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +24,11 @@ public class UsuarioAdminController extends AbstractResource{
     private UsuarioAdminRepository repository;
 
     @GetMapping
-    public List<UsuarioAdminDTO> getUsuariosAdmin() {
-        return repository.findAll().stream().map(p -> UsuarioAdminDTO.toDTO(p)).collect(Collectors.toList());
+    public List<UsuarioAdminDTO> getUsuariosAdmin(@QuerydslPredicate(root = UsuarioAdmin.class) Predicate predicate) {
+        List<UsuarioAdminDTO> result = new ArrayList<>();
+        Iterable<UsuarioAdmin> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(UsuarioAdminDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")

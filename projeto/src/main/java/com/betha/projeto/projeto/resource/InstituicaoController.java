@@ -1,14 +1,18 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.model.Artigo;
 import com.betha.projeto.projeto.model.Cargo;
 import com.betha.projeto.projeto.model.Instituicao;
 import com.betha.projeto.projeto.repository.InstituicaoRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +24,11 @@ public class InstituicaoController extends AbstractResource{
     private InstituicaoRepository repository;
 
     @GetMapping
-    public List<InstituicaoDTO> getInstituicoes() {
-        return repository.findAll().stream().map(p -> InstituicaoDTO.toDTO(p)).collect(Collectors.toList());
+    public List<InstituicaoDTO> getInstituicoes(@QuerydslPredicate(root = Instituicao.class) Predicate predicate) {
+        List<InstituicaoDTO> result = new ArrayList<>();
+        Iterable<Instituicao> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(InstituicaoDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")

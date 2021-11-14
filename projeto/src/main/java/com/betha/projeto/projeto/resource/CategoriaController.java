@@ -1,13 +1,17 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.model.Artigo;
 import com.betha.projeto.projeto.model.Categoria;
 import com.betha.projeto.projeto.repository.CategoriaRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +23,11 @@ public class CategoriaController extends AbstractResource{
     private CategoriaRepository repository;
 
     @GetMapping
-    public List<CategoriaDTO> getCategorias() {
-        return repository.findAll().stream().map(p -> CategoriaDTO.toDTO(p)).collect(Collectors.toList());
+    public List<CategoriaDTO> getCategorias(@QuerydslPredicate(root = Categoria.class) Predicate predicate) {
+        List<CategoriaDTO> result = new ArrayList<>();
+        Iterable<Categoria> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(CategoriaDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")

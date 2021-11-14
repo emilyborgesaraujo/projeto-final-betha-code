@@ -1,13 +1,17 @@
 package com.betha.projeto.projeto.resource;
 
+import com.betha.projeto.projeto.model.Artigo;
 import com.betha.projeto.projeto.model.Cargo;
 import com.betha.projeto.projeto.model.Setor;
 import com.betha.projeto.projeto.repository.SetorRepository;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +23,11 @@ public class SetorController extends AbstractResource{
     private SetorRepository repository;
 
     @GetMapping
-    public List<SetorDTO> getSetores() {
-        return repository.findAll().stream().map(p -> SetorDTO.toDTO(p)).collect(Collectors.toList());
+    public List<SetorDTO> getSetores(@QuerydslPredicate(root = Setor.class) Predicate predicate) {
+        List<SetorDTO> result = new ArrayList<>();
+        Iterable<Setor> all = repository.findAll(predicate);
+        all.forEach(f -> result.add(SetorDTO.toDTO(f)));
+        return result;
     }
 
     @GetMapping("/{id}")

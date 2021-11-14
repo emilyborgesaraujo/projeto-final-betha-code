@@ -17,7 +17,6 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class Instituicao extends AbstractPessoaJuridica {
 
-    @NotNull
     @OneToMany(cascade = ALL, mappedBy = "instituicao")
     private Set<UsuarioEmpresa> usuarios;
     @OneToMany(cascade = ALL, mappedBy = "instituicao")
