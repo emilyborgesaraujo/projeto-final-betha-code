@@ -2,12 +2,14 @@ package com.betha.projeto.projeto.model;
 
 import com.betha.projeto.projeto.enterprise.AbstractEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Table(schema = "projeto",name = "CATEGORIA")
+@Table(schema = "projeto",name = "ASSUNTO")
 @Entity
-public class Categoria extends AbstractEntity {
+public class Assunto extends AbstractEntity {
 
     @NotNull
     @Column(name = "DESCRICAO")

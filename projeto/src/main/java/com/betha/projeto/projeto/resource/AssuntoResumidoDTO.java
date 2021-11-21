@@ -1,8 +1,9 @@
 package com.betha.projeto.projeto.resource;
 
-import com.betha.projeto.projeto.model.Setor;
+import com.betha.projeto.projeto.model.Assunto;
+import com.betha.projeto.projeto.model.Categoria;
 
-public class SetorResumidoDTO {
+public class AssuntoResumidoDTO {
 
     private Long id;
     private String descricao;
@@ -23,15 +24,15 @@ public class SetorResumidoDTO {
         this.descricao = descricao;
     }
 
-    public static SetorResumidoDTO toDTO(Setor setor) {
-        SetorResumidoDTO dto = new SetorResumidoDTO();
-        dto.setId(setor.getId());
-        dto.setDescricao(setor.getDescricao());
+    public static AssuntoResumidoDTO toDTO(Assunto assunto) {
+        AssuntoResumidoDTO dto = new AssuntoResumidoDTO();
+        dto.setId(assunto.getId());
+        dto.setDescricao(assunto.getDescricao());
         return dto;
     }
 
-    public static Setor fromDTO(SetorResumidoDTO dto) {
-        Setor entity = new Setor();
+    public static Assunto fromDTO(AssuntoResumidoDTO dto) {
+        Assunto entity = new Assunto();
         entity.setId(dto.getId());
         entity.setDescricao(dto.getDescricao());
         return entity;

@@ -52,7 +52,7 @@ public class ArtigoController extends AbstractResource {
         artigoFind.setUsuarioResponsavelPubli(artigo.getUsuarioResponsavelPubli());
         artigoFind.setArquivo(artigo.getArquivo());
         artigoFind.setCategoria(artigo.getCategoria());
-        artigoFind.setInstituicao(artigo.getInstituicao());
+        artigoFind.setAssunto(artigo.getAssunto());
         artigoFind.setStatusArtigo(artigo.getStatusArtigo());
 
         return repository.save(artigoFind);

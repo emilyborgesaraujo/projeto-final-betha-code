@@ -15,13 +15,9 @@ public interface ArtigoRepository extends JpaRepository<Artigo, Long>, QuerydslP
 
     List<Artigo> findByDataPublicacao(LocalDate dataPublicacao);
 
-    List<Artigo> findByUsuarioResponsavelPubli(UsuarioEmpresa usuarioResponsavelPubli);
+    List<Artigo> findByUsuarioResponsavelPubli(Usuario usuarioResponsavelPubli);
 
     List<Artigo> findByArquivo(String arquivo);
-
-    List<Artigo> findByCategoria(Categoria categoria);
-
-    List<Artigo> findByInstituicao(Instituicao instituicao);
 
     List<Artigo> findByStatusArtigo(StatusArtigo statusArtigo);
 }

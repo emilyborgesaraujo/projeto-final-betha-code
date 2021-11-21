@@ -17,24 +17,4 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class Instituicao extends AbstractPessoaJuridica {
 
-    @OneToMany(cascade = ALL, mappedBy = "instituicao")
-    private Set<UsuarioEmpresa> usuarios;
-    @OneToMany(cascade = ALL, mappedBy = "instituicao")
-    private Set<Setor> setores;
-
-    public Set<UsuarioEmpresa> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(Set<UsuarioEmpresa> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public Set<Setor> getSetores() {
-        return setores;
-    }
-
-    public void setSetores(Set<Setor> setores) {
-        this.setores = setores;
-    }
 }

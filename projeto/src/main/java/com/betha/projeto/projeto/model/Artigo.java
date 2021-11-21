@@ -6,6 +6,7 @@ import com.betha.projeto.projeto.enterprise.IPublicavel;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Table(schema = "projeto",name = "ARTIGO")
 @Entity
@@ -20,18 +21,20 @@ public class Artigo extends AbstractEntity implements IPublicavel {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "I_USUARIO_PUBLICOU", referencedColumnName = "ID")
-    private UsuarioEmpresa usuarioResponsavelPubli;
+    private Usuario usuarioResponsavelPubli;
     @NotNull
     @Column(name = "LINK_ARQUIVO")
     private String arquivo;
-    @NotNull
+    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @JoinTable(
+            name = "artigo_categorias",
+            joinColumns = {@JoinColumn(name = "artigo_id")},
+            inverseJoinColumns = {@JoinColumn(name = "categoria_id")}
+    )
+    private List<Categoria> categoria;
     @ManyToOne
-    @JoinColumn(name = "I_CATEGORIA", referencedColumnName = "ID")
-    private Categoria categoria;
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
-    private Instituicao instituicao;
+    @JoinColumn(name = "I_ASSUNTO", referencedColumnName = "ID")
+    private Assunto assunto;
     @NotNull
     @Column(name = "STATUS_ARTIGO")
     private StatusArtigo statusArtigo;
@@ -61,11 +64,11 @@ public class Artigo extends AbstractEntity implements IPublicavel {
     }
 
     @Override
-    public UsuarioEmpresa getUsuarioResponsavelPubli() {
+    public Usuario getUsuarioResponsavelPubli() {
         return usuarioResponsavelPubli;
     }
 
-    public void setUsuarioResponsavelPubli(UsuarioEmpresa usuarioResponsavelPubli) {
+    public void setUsuarioResponsavelPubli(Usuario usuarioResponsavelPubli) {
         this.usuarioResponsavelPubli = usuarioResponsavelPubli;
     }
 
@@ -77,19 +80,19 @@ public class Artigo extends AbstractEntity implements IPublicavel {
         this.arquivo = arquivo;
     }
 
-    public Categoria getCategoria() {
+    public List<Categoria> getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(List<Categoria> categoria) {
         this.categoria = categoria;
     }
 
-    public Instituicao getInstituicao() {
-        return instituicao;
+    public Assunto getAssunto() {
+        return assunto;
     }
 
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
+    public void setAssunto(Assunto assunto) {
+        this.assunto = assunto;
     }
 }

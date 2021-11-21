@@ -48,7 +48,6 @@ public class CargoController extends AbstractResource{
 
         cargoFind.setId(cargo.getId());
         cargoFind.setDescricao(cargo.getDescricao());
-        cargoFind.setInstituicao(cargo.getInstituicao());
 
         return repository.save(cargoFind);
     }

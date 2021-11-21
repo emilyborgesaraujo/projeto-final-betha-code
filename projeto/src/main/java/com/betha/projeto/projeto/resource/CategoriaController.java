@@ -48,7 +48,6 @@ public class CategoriaController extends AbstractResource{
 
         categoriaFind.setId(categoria.getId());
         categoriaFind.setDescricao(categoria.getDescricao());
-        categoriaFind.setInstituicao(categoria.getInstituicao());
 
         return repository.save(categoriaFind);
     }

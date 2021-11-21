@@ -12,10 +12,6 @@ public class Cargo extends AbstractEntity {
     @NotNull
     @Column(name = "DESCRICAO")
     private String descricao;
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
-    private Instituicao instituicao;
 
     public String getDescricao() {
         return descricao;
@@ -23,13 +19,5 @@ public class Cargo extends AbstractEntity {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
     }
 }

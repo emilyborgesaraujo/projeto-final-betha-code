@@ -13,6 +13,4 @@ import java.util.List;
 public interface CargoRepository extends JpaRepository<Cargo, Long>, QuerydslPredicateExecutor<Cargo> {
 
     List<Cargo> findByDescricao(String descricao);
-
-    List<Cargo> findByInstituicao(Instituicao instituicao);
 }

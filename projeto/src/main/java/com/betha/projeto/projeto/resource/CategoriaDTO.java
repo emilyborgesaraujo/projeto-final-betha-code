@@ -6,7 +6,6 @@ public class CategoriaDTO {
 
     private Long id;
     private String descricao;
-    private InstituicaoResumidoDTO instituicao;
 
     public Long getId() {
         return id;
@@ -24,19 +23,10 @@ public class CategoriaDTO {
         this.descricao = descricao;
     }
 
-    public InstituicaoResumidoDTO getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(InstituicaoResumidoDTO instituicao) {
-        this.instituicao = instituicao;
-    }
-
     public static CategoriaDTO toDTO(Categoria categoria) {
         CategoriaDTO dto = new CategoriaDTO();
         dto.setId(categoria.getId());
         dto.setDescricao(categoria.getDescricao());
-        dto.setInstituicao(InstituicaoResumidoDTO.toDTO(categoria.getInstituicao()));
         return dto;
     }
 

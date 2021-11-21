@@ -27,21 +27,22 @@ public class Curso extends AbstractEntity implements IPublicavel {
     @NotNull
     @Column(name = "DATA_PUBLICACAO")
     private LocalDate dataPublicacao;
-    @NotNull
+    @ManyToMany(cascade = {CascadeType.REFRESH})
+    @JoinTable(
+            name = "curso_categorias",
+            joinColumns = {@JoinColumn(name = "curso_id")},
+            inverseJoinColumns = {@JoinColumn(name = "categoria_id")}
+    )
+    private List<Categoria> categoria;
     @ManyToOne
-    @JoinColumn(name = "I_CATEGORIA", referencedColumnName = "ID")
-    private Categoria categoria;
+    @JoinColumn(name = "I_ASSUNTO", referencedColumnName = "ID")
+    private Assunto assunto;
     @NotNull
     @ManyToOne
     @JoinColumn(name = "I_INSTRUTOR", referencedColumnName = "ID")
-    private UsuarioEmpresa instrutor;
-    @NotNull
-    @OneToMany(cascade = ALL, mappedBy = "curso")
-    private Set<Aula> aulas;
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "I_INSTITUICAO", referencedColumnName = "ID")
-    private Instituicao instituicao;
+    private Usuario instrutor;
+//    @OneToMany(cascade = ALL, mappedBy = "curso")
+//    private Set<Aula> aulas;
     @NotNull
     @Column(name = "STATUS_CURSO")
     private StatusCurso statusCurso;
@@ -83,7 +84,7 @@ public class Curso extends AbstractEntity implements IPublicavel {
     }
 
     @Override
-    public UsuarioEmpresa getUsuarioResponsavelPubli() {
+    public Usuario getUsuarioResponsavelPubli() {
         return instrutor;
     }
 
@@ -91,35 +92,35 @@ public class Curso extends AbstractEntity implements IPublicavel {
         this.dataPublicacao = dataPublicacao;
     }
 
-    public Categoria getCategoria() {
+    public List<Categoria> getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(List<Categoria> categoria) {
         this.categoria = categoria;
     }
 
-    public UsuarioEmpresa getInstrutor() {
+    public Usuario getInstrutor() {
         return instrutor;
     }
 
-    public void setInstrutor(UsuarioEmpresa instrutor) {
+    public void setInstrutor(Usuario instrutor) {
         this.instrutor = instrutor;
     }
 
-    public Set<Aula> getAulas() {
-        return aulas;
+//    public Set<Aula> getAulas() {
+//        return aulas;
+//    }
+//
+//    public void setAulas(Set<Aula> aulas) {
+//        this.aulas = aulas;
+//    }
+
+    public Assunto getAssunto() {
+        return assunto;
     }
 
-    public void setAulas(Set<Aula> aulas) {
-        this.aulas = aulas;
-    }
-
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
+    public void setAssunto(Assunto assunto) {
+        this.assunto = assunto;
     }
 }

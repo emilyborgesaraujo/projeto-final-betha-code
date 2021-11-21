@@ -1,9 +1,9 @@
 package com.betha.projeto.projeto.resource;
 
-import com.betha.projeto.projeto.model.Cargo;
-import com.betha.projeto.projeto.model.Instituicao;
+import com.betha.projeto.projeto.model.Assunto;
+import com.betha.projeto.projeto.model.Categoria;
 
-public class CargoDTO {
+public class AssuntoDTO {
 
     private Long id;
     private String descricao;
@@ -24,15 +24,15 @@ public class CargoDTO {
         this.descricao = descricao;
     }
 
-    public static CargoDTO toDTO(Cargo cargo) {
-        CargoDTO dto = new CargoDTO();
-        dto.setId(cargo.getId());
-        dto.setDescricao(cargo.getDescricao());
+    public static AssuntoDTO toDTO(Assunto assunto) {
+        AssuntoDTO dto = new AssuntoDTO();
+        dto.setId(assunto.getId());
+        dto.setDescricao(assunto.getDescricao());
         return dto;
     }
 
-    public static Cargo fromDTO(CargoDTO dto) {
-        Cargo entity = new Cargo();
+    public static Assunto fromDTO(AssuntoDTO dto) {
+        Assunto entity = new Assunto();
         entity.setId(dto.getId());
         entity.setDescricao(dto.getDescricao());
         return entity;

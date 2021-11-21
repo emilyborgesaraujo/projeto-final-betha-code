@@ -1,8 +1,6 @@
 package com.betha.projeto.projeto.resource;
 
-import com.betha.projeto.projeto.model.Artigo;
-import com.betha.projeto.projeto.model.Cargo;
-import com.betha.projeto.projeto.model.Curso;
+import com.betha.projeto.projeto.model.*;
 import com.betha.projeto.projeto.repository.CursoRepository;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,14 @@ public class CursoController extends AbstractResource {
         return result;
     }
 
+    @GetMapping("/andamento")
+    public List<CursoDTO> getCursosA(@QuerydslPredicate(root = Curso.class) Predicate predicate) {
+        List<CursoDTO> result = new ArrayList<>();
+        Iterable<Curso> all = repository.findAll(QCurso.curso.statusCurso.eq(StatusCurso.EM_ANDAMENTO));
+        all.forEach(f -> result.add(CursoDTO.toDTO(f)));
+        return result;
+    }
+
     @GetMapping("/{id}")
     public CursoDTO getCursoId(@PathVariable(value = "id") Long cursoId) throws EntityNotFoundException {
         Curso cursoFind = repository.findById(cursoId).orElseThrow(() -> new EntityNotFoundException("Curso não encontrado com ID : " + cursoId));
@@ -53,8 +59,8 @@ public class CursoController extends AbstractResource {
         cursoFind.setDuracaoTotal(curso.getDuracaoTotal());
         cursoFind.setDataPublicacao(curso.getDataPublicacao());
         cursoFind.setCategoria(curso.getCategoria());
+        cursoFind.setAssunto(curso.getAssunto());
         cursoFind.setInstrutor(curso.getInstrutor());
-        cursoFind.setInstituicao(curso.getInstituicao());
         cursoFind.setStatusCurso(curso.getStatusCurso());
 
         return repository.save(cursoFind);

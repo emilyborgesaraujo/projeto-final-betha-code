@@ -19,11 +19,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long>, QuerydslPre
 
     List<Curso> findByDataPublicacao(LocalDate dataPublicacao);
 
-    List<Curso> findByCategoria(Categoria categoria);
-
-    List<Curso> findByInstrutor(UsuarioEmpresa instrutor);
-
-    List<Curso> findByInstituicao(Instituicao instituicao);
+    List<Curso> findByInstrutor(Usuario instrutor);
 
     List<Curso> findByStatusCurso(StatusCurso statusCurso);
 }
