@@ -1,7 +1,6 @@
 package com.betha.projeto.projeto.enterprise;
 
 import com.betha.projeto.projeto.model.Usuario;
-import com.betha.projeto.projeto.model.UsuarioEmpresa;
 
 import java.time.LocalDate;
 

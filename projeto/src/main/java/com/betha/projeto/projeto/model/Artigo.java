@@ -10,7 +10,7 @@ import java.util.List;
 
 @Table(schema = "projeto",name = "ARTIGO")
 @Entity
-public class Artigo extends AbstractEntity implements IPublicavel {
+public class Artigo extends AbstractEntity implements IPublicavel{
 
     @NotNull
     @Column(name = "DESCRICAO")
