@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ArtigoDTO {
 
-    private Long id;
+    private String id;
     private String descricao;
     private LocalDate dataPublicacao;
     private UsuarioResumidoDTO usuarioResponsavelPubli;
@@ -19,11 +19,11 @@ public class ArtigoDTO {
     private AssuntoResumidoDTO assunto;
     private StatusArtigo statusArtigo;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -85,7 +85,7 @@ public class ArtigoDTO {
 
     public static ArtigoDTO toDTO(Artigo artigo) {
         ArtigoDTO dto = new ArtigoDTO();
-        dto.setId(artigo.getId());
+        dto.setId(artigo.getId().toString());
         dto.setDescricao(artigo.getDescricao());
         dto.setDataPublicacao(artigo.getDataPublicacao());
         dto.setUsuarioResponsavelPubli(UsuarioResumidoDTO.toDTO(artigo.getUsuarioResponsavelPubli()));
@@ -98,7 +98,7 @@ public class ArtigoDTO {
 
     public static Artigo fromDTO(ArtigoDTO dto) {
         Artigo entity = new Artigo();
-        entity.setId(dto.getId());
+        entity.setId(Long.getLong(dto.getId()));
         entity.setDescricao(dto.getDescricao());
         entity.setDataPublicacao(dto.getDataPublicacao());
         entity.setArquivo(dto.getArquivo());

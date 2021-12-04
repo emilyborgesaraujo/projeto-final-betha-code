@@ -4,14 +4,14 @@ import com.betha.projeto.projeto.model.Categoria;
 
 public class CategoriaDTO {
 
-    private Long id;
+    private String id;
     private String descricao;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -25,14 +25,14 @@ public class CategoriaDTO {
 
     public static CategoriaDTO toDTO(Categoria categoria) {
         CategoriaDTO dto = new CategoriaDTO();
-        dto.setId(categoria.getId());
+        dto.setId(categoria.getId().toString());
         dto.setDescricao(categoria.getDescricao());
         return dto;
     }
 
     public static Categoria fromDTO(CategoriaDTO dto) {
         Categoria entity = new Categoria();
-        entity.setId(dto.getId());
+        entity.setId(Long.getLong(dto.getId()));
         entity.setDescricao(dto.getDescricao());
         return entity;
     }

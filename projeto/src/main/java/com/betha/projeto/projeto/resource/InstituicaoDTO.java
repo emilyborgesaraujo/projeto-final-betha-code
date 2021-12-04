@@ -8,17 +8,17 @@ import java.util.stream.Collectors;
 
 public class InstituicaoDTO {
 
-    private Long id;
+    private String id;
     private String nome;
     private String email;
     private String telefone;
     private String cnpj;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,7 +56,7 @@ public class InstituicaoDTO {
 
     public static InstituicaoDTO toDTO(Instituicao instituicao) {
         InstituicaoDTO dto = new InstituicaoDTO();
-        dto.setId(instituicao.getId());
+        dto.setId(instituicao.getId().toString());
         dto.setNome(instituicao.getNome());
         dto.setEmail(instituicao.getEmail());
         dto.setTelefone(instituicao.getTelefone());
@@ -66,7 +66,7 @@ public class InstituicaoDTO {
 
     public static Instituicao fromDTO(InstituicaoDTO dto) {
         Instituicao entity = new Instituicao();
-        entity.setId(dto.getId());
+        entity.setId(Long.getLong(dto.getId()));
         entity.setNome(dto.getNome());
         entity.setEmail(dto.getEmail());
         entity.setTelefone(dto.getTelefone());

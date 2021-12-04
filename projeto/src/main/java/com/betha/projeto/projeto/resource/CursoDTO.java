@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class CursoDTO {
 
-    private Long id;
+    private String id;
     private String descricao;
     private String objetivo;
     private String duracaoTotal;
@@ -23,11 +23,11 @@ public class CursoDTO {
     //private Set<AulaResumidoDTO> aulas;
     private StatusCurso statusCurso;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -105,7 +105,7 @@ public class CursoDTO {
 
     public static CursoDTO toDTO(Curso curso) {
         CursoDTO dto = new CursoDTO();
-        dto.setId(curso.getId());
+        dto.setId(curso.getId().toString());
         dto.setDescricao(curso.getDescricao());
         dto.setObjetivo(curso.getObjetivo());
         dto.setDuracaoTotal(curso.getDuracaoTotal());
@@ -120,7 +120,7 @@ public class CursoDTO {
 
     public static Curso fromDTO(CursoDTO dto) {
         Curso entity = new Curso();
-        entity.setId(dto.getId());
+        entity.setId(Long.getLong(dto.getId()));
         entity.setDescricao(dto.getDescricao());
         entity.setObjetivo(dto.getObjetivo());
         entity.setDuracaoTotal(dto.getDuracaoTotal());

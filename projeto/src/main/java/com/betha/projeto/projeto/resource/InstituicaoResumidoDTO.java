@@ -4,14 +4,14 @@ import com.betha.projeto.projeto.model.Instituicao;
 
 public class InstituicaoResumidoDTO {
 
-    private Long id;
+    private String id;
     private String nome;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -25,14 +25,14 @@ public class InstituicaoResumidoDTO {
 
     public static InstituicaoResumidoDTO toDTO(Instituicao instituicao) {
         InstituicaoResumidoDTO dto = new InstituicaoResumidoDTO();
-        dto.setId(instituicao.getId());
+        dto.setId(instituicao.getId().toString());
         dto.setNome(instituicao.getNome());
         return dto;
     }
 
     public static Instituicao fromDTO(InstituicaoResumidoDTO dto) {
         Instituicao entity = new Instituicao();
-        entity.setId(dto.getId());
+        entity.setId(Long.getLong(dto.getId()));
         entity.setNome(dto.getNome());
         return entity;
     }

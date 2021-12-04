@@ -4,18 +4,18 @@ import com.betha.projeto.projeto.model.Aula;
 
 public class AulaDTO {
 
-    private Long id;
+    private String id;
     private String descricao;
     private String resumo;
     private String duracao;
     private String video;
     private CursoResumidoDTO curso;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,7 +61,7 @@ public class AulaDTO {
 
     public static AulaDTO toDTO(Aula aula) {
         AulaDTO dto = new AulaDTO();
-        dto.setId(aula.getId());
+        dto.setId(aula.getId().toString());
         dto.setDescricao(aula.getDescricao());
         dto.setResumo(aula.getResumo());
         dto.setDuracao(aula.getDuracao());
@@ -72,7 +72,7 @@ public class AulaDTO {
 
     public static Aula fromDTO(AulaDTO dto) {
         Aula entity = new Aula();
-        entity.setId(dto.getId());
+        entity.setId(Long.getLong(dto.getId()));
         entity.setDescricao(dto.getDescricao());
         entity.setResumo(dto.getResumo());
         entity.setDuracao(dto.getDuracao());

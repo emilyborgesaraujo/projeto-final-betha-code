@@ -4,14 +4,14 @@ import com.betha.projeto.projeto.model.Artigo;
 
 public class ArtigoResumidoDTO {
 
-    private Long id;
+    private String id;
     private String descricao;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -25,14 +25,14 @@ public class ArtigoResumidoDTO {
 
     public static ArtigoResumidoDTO toDTO(Artigo artigo) {
         ArtigoResumidoDTO dto = new ArtigoResumidoDTO();
-        dto.setId(artigo.getId());
+        dto.setId(artigo.getId().toString());
         dto.setDescricao(artigo.getDescricao());
         return dto;
     }
 
     public static Artigo fromDTO(ArtigoResumidoDTO dto) {
         Artigo entity = new Artigo();
-        entity.setId(dto.getId());
+        entity.setId(Long.getLong(dto.getId()));
         entity.setDescricao(dto.getDescricao());
         return entity;
     }
